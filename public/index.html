@@ -1,17 +1,253 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title><%= htmlWebpackPlugin.options.title %></title>
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <title><%= htmlWebpackPlugin.options.title %></title>
+  <script src="./vconsole.min.js"></script>
+  <script src="./jquery.js"></script>
+  <script>
+    var vConsole = new VConsole()
+  </script>
+  <style>
+    .loading {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      background-color: #fff;
+    }
+
+    .loading .pic {
+      width: 50px;
+      height: 50px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+    }
+
+    .loading .pic i {
+      display: block;
+      float: left;
+      width: 6px;
+      height: 50px;
+      background-color: #399;
+      margin: 0 2px;
+      transform: scaleY(.4);
+      animation: load 1.2s infinite;
+    }
+
+    .loading .pic i:nth-child(1) {}
+
+    .loading .pic i:nth-child(2) {
+      animation-delay: .1s;
+    }
+
+    .loading .pic i:nth-child(3) {
+      animation-delay: .2s;
+    }
+
+    .loading .pic i:nth-child(4) {
+      animation-delay: .3s;
+    }
+
+    .loading .pic i:nth-child(5) {
+      animation-delay: .4s;
+    }
+
+    @keyframes load {
+
+      0%,
+      40%,
+      100% {
+        transform: scaleY(.4);
+      }
+
+      20% {
+        transform: scaleY(1);
+      }
+    }
+
+    .flex-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .loading {
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      background-color: #000;
+      color: #fff;
+      font-size: .24rem;
+    }
+
+    .loading .pic {
+      width: 2.86rem;
+      height: 5rem;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+      text-align: center;
+      line-height: 100px;
+    }
+
+    /* .loading .pic span {
+      display: block;
+      width: 80px;
+      height: 80px;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      border-radius: 50%;
+      box-shadow: 0 3px 0 #666;
+      animation: rotate 1s infinite linear;
+      -webkit-animation: rotate 1s infinite linear;
+    }
+
+    @-webkit-keyframes rotate {
+      0% {
+        -webkit-transform: rotate(0deg);
+      }
+
+      100% {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+
+    @keyframes rotate {
+      100% {
+        transform: rotate(360deg);
+      }
+    } */
+
+    .loading-gif {
+      width: 2.86rem;
+      height: 3.68rem;
+      /* width: 286px;
+      height: 368px; */
+      background: url('./loading2.gif') no-repeat center center;
+      background-size: 100% auto;
+    }
+  </style>
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+      Please enable it to continue.</strong>
+  </noscript>
+  <div id="app"></div>
+
+  <!-- <button>修改标题</button> -->
+  <!-- 加载中 -->
+  <!-- <div class="loading">
+    <div class="flex-center pic">
+      <i></i>
+      <i></i>
+      <i></i>
+      <i></i>
+      <i></i>
+    </div>
+  </div> -->
+
+  <!-- loading -->
+  <div class="loading" style="display:none;">
+    <div class="pic">
+      <!-- <span></span> -->
+      <div class="loading-gif"></div>
+      <b>0%</b>
+    </div>
+  </div>
+
+
+
+  <!-- built files will be auto injected -->
+
+  <code
+    style="font-family:Menlo, Monaco, Consolas, 'Courier New', monospace;display:block;line-height:18px;border:none !important;"
+    class="hljs">
+    <script type="text/javascript">
+      // var ua = navigator.userAgent.toLowerCase();
+      // var isWeixin = ua.indexOf('micromessenger') != -1;
+      // var isAndroid = ua.indexOf('android') != -1;
+      // var isIos = (ua.indexOf('iphone') != -1) || (ua.indexOf('ipad') != -1);
+      // if (!isWeixin) {
+      //   document.head.innerHTML = '<title>抱歉，出错了</title><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0"><link rel="stylesheet" type="text/css" href="https://res.wx.qq.com/open/libs/weui/0.4.1/weui.css">';
+      //   document.body.innerHTML = '<div class="weui_msg"><div class="weui_icon_area"><i class="weui_icon_info weui_icon_msg"></i></div><div class="weui_text_area"><h4 class="weui_msg_title">请在微信客户端打开链接</h4></div></div>';
+      // } else {
+      //   var vConsole = new VConsole()
+      //   var ua = navigator.userAgent.toLowerCase();
+      //   console.log('ua',ua);
+      //   document.onreadystatechange = subSomething;//当页面加载状态改变的时候执行这个方法.
+      //   function subSomething(){ 
+      //     if(document.readyState == "complete"){ //当页面加载状态为完全结束时进入 
+      //       console.log('隐藏loading');
+      //     }
+      //   }
+      // }
+
+      // 加载中
+      document.onreadystatechange = function () { //即在加载的过程中执行下面的代码
+        if (document.readyState == "complete") { //complete加载完成
+          console.log('完成加载');
+          // $(".loading").fadeOut();
+        }
+      }
+
+      // $(function () {
+      //   var img = $("img"); //首先获取所有的Img对象
+      //   var num = 0; //定义一个变量，赋值给b标签用
+      //   console.log('img',img);
+      //   img.each(function (i) { //遍历获取到的所有img
+      //     var oImg = new Image(); //new一个新对象
+      //     oImg.onload = function () { //使用onload方法，在加载完成后执行
+      //       oImg.onload = null; //首先清除掉缓存
+      //       num++; //每次加载的过程中num++，即执行次数
+      //       $(".loading b").html(parseInt(num / $("img").size() * 100) +"%"); //改变b标签的内容，用num除以img的个数，再乘以100，再取整，这就是加载的百分数
+      //       if (num >= i) {
+      //         $(".loading").fadeOut(); //当num的值大于等于个数时隐藏
+      //       }
+      //     }
+      //     oImg.src = img[i].src; //预加载，先指定一个img.src，当onload成功以后可以将数据指定到某一个元素或者图片上，或者返回一个结果
+      //   })
+      // })
+
+      // document.querySelector('button').on('click',()=>{
+      //   document.getElementsByTagName("title")[0].innerText = 'innerText我是原生js方法';
+      // })
+
+      // console.log('index-$',$);
+      // $('button').on('click',function(){
+      //   console.log('点击btn');
+      //   document.getElementsByTagName("title")[0].innerText = 'innerText我是原生js方法';
+      // })
+      
+    </script>
+  </code>
+
+</body>
+
 </html>
